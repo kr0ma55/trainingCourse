@@ -10,12 +10,7 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 
-		Studente nuovoStudente = new Studente("Agnese","Riccardi","un777890");
-		Persona nuovaPersona = new Studente("Agnese","Riccardi","un777890");
-		nuovoStudente.getMatricola();
-		nuovoStudente.getCodiceFiscale();
-		nuovoStudente.getName();
-		nuovoStudente.getSurname();
+		System.out.println("CIAO BELLI");
 	}
 
 }
