@@ -1,26 +1,12 @@
 package com.training.demo.model;
 
-public class Studente {
-    private String name;
-    private String biname;
-
-    public Studente(){
-
+public class Studente extends Persona {
+    private String matricola;
+    public Studente(String name, String surname,String matricola) {
+        super(name, surname);
+        this.matricola = matricola;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBiname() {
-        return biname;
-    }
-
-    public void setBiname(String biname) {
-        this.biname = biname;
+    public String getMatricola() {
+        return this.matricola;
     }
 }

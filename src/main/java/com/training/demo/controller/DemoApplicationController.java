@@ -43,12 +43,12 @@ public class DemoApplicationController {
     @RequestMapping(value = "/postMyName", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity postMyNameMarco(HttpServletRequest req, @RequestBody String objectRequest) {
 
-        Studente nuovoStudente = new Studente();
+        Studente nuovoStudente = new Studente("","","");
         try {
             ObjectMapper mapper = new ObjectMapper();
             nuovoStudente = mapper.readValue(objectRequest, new TypeReference<Studente>(){});
 
-            nuovoStudente.setBiname("Ognibene");
+            nuovoStudente.setSurname("Ognibene");
 
 
         } catch (JsonProcessingException e) {
