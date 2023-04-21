@@ -10,8 +10,7 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 
-		System.out.println("CIAO BELLI");
-		 //COMMENTO
+		System.out.println("CIAO GIOCO LIBRERIA");
 	}
 
 }
