@@ -47,6 +47,7 @@ public class Persona implements Saluto {
         System.out.println(parola);
     }
     public void urla(String parole[]){
+        String amen = "sssws";
         for(String parola:parole){
             System.out.println(parola);
         }
