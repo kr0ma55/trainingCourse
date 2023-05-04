@@ -1,8 +1,2 @@
-CREATE TABLE Praticante (
-    ID int,
-    NICK_NAME varchar(255),
-    COLORE varchar(255)
-);
-
-
 INSERT INTO Praticante ( ID,NICK_NAME,COLORE) VALUES (1,'jolly', 'RED');
+INSERT INTO Praticante ( ID,NICK_NAME,COLORE) VALUES (2,'Jay1', 'GREEN');
