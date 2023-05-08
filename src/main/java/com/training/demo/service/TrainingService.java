@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrainingService {
@@ -14,10 +15,19 @@ public class TrainingService {
     @Autowired
     PraticanteRepository praticanteRepository;
 
-    public List<Praticante> findAll(){
+    public Optional<Praticante> findById(Long id){
         //Praticante praticRecuperato = praticanteRepository.getByNickName(nickName);
-        List<Praticante> praticStringList =  praticanteRepository.findAll();
+        Optional praticante =  praticanteRepository.findById(id);
+        return praticante;
+    }
 
-        return praticStringList;
+    public List<Praticante> findAll(){
+        List<Praticante> praticanteList =  praticanteRepository.findAll();
+        return praticanteList;
+    }
+
+    public Praticante addNew(Praticante praticante){
+        Praticante nuovoPraticante =  praticanteRepository.save(praticante);
+        return nuovoPraticante;
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class DemoApplicationController {
@@ -45,17 +46,21 @@ public class DemoApplicationController {
         return ResponseEntity.ok(concat);
     }
 
-    @RequestMapping(value = "/getnamebyid", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity helloMyName(HttpServletRequest req,@RequestParam String nickName ) {
-        //Praticante praticante = new Praticante();
-        List<Praticante> praticante = new ArrayList<Praticante>();
+    @RequestMapping(value = "/getpraticantebyid", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getPraticanteById(HttpServletRequest req,@RequestParam Long id ) {
+        Optional praticante ;
         try {
-            praticante = trainingService.findAll();
+            praticante = trainingService.findById(id);
+            if(praticante.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return ResponseEntity.ok(praticante);
+        return ResponseEntity.ok(praticante.get());
     }
+
+
 
     @RequestMapping(value = "/postMyName", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity postMyNameMarco(HttpServletRequest req, @RequestBody String objectRequest) {
@@ -72,6 +77,51 @@ public class DemoApplicationController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         return ResponseEntity.ok(nuovoStudente);
+    }
+
+
+    //REAL SERVICES
+    @RequestMapping(value = "/postnuovopraticante", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity postNuovoPraticante(HttpServletRequest req, @RequestBody String objectRequest) {
+
+        Praticante nuovoPraticanteCreato = new Praticante();
+        Praticante praticanteMappatoDallaRichiesta = new Praticante();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            praticanteMappatoDallaRichiesta = mapper.readValue(objectRequest, new TypeReference<Praticante>(){});
+
+            nuovoPraticanteCreato = trainingService.addNew(praticanteMappatoDallaRichiesta);
+
+        } catch (JsonProcessingException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return ResponseEntity.ok(nuovoPraticanteCreato);
+    }
+
+    @RequestMapping(value = "/getallpraticanti", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getAllPraticanti(HttpServletRequest req ) {
+        List<Praticante> praticanteList = new ArrayList<Praticante>();
+        try {
+            praticanteList = trainingService.findAll();
+            if(praticanteList.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return ResponseEntity.ok(praticanteList);
+    }
+
+    @RequestMapping(value = "/getnamebyid", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity helloMyName(HttpServletRequest req,@RequestParam String nickName ) {
+        //Praticante praticante = new Praticante();
+        List<Praticante> praticante = new ArrayList<Praticante>();
+        try {
+            praticante = trainingService.findAll();
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return ResponseEntity.ok(praticante);
     }
 
 

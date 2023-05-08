@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Id;
 
 @Repository
-public interface PraticanteRepository extends JpaRepository<Praticante, Id>
+public interface PraticanteRepository extends JpaRepository<Praticante, Long>
 {
     Praticante getByNickName(String nickName);
 
